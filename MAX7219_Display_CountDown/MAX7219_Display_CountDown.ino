@@ -1,0 +1,53 @@
+#include <LedControl.h>
+
+// Pin definitions
+#define DIN_PIN 11
+#define CS_PIN 10
+#define CLK_PIN 13
+
+// Initialize LedControl object
+// Parameters: DIN, CLK, CS, number of MAX7219 modules
+LedControl lc = LedControl(DIN_PIN, CLK_PIN, CS_PIN, 4);
+
+// Define the digit patterns for 0-9
+const byte digitPatterns[10][8] = {
+  {0x3E, 0x63, 0x63, 0x63, 0x63, 0x63, 0x3E, 0x00}, // 0
+  {0x06, 0x0E, 0x06, 0x06, 0x06, 0x06, 0x1F, 0x00}, // 1
+  {0x3E, 0x63, 0x03, 0x1E, 0x30, 0x63, 0x7F, 0x00}, // 2
+  {0x3E, 0x63, 0x03, 0x1E, 0x03, 0x63, 0x3E, 0x00}, // 3
+  {0x0E, 0x1E, 0x36, 0x66, 0x7F, 0x06, 0x06, 0x00}, // 4
+  {0x7F, 0x60, 0x7E, 0x03, 0x03, 0x63, 0x3E, 0x00}, // 5
+  {0x1E, 0x30, 0x60, 0x7E, 0x63, 0x63, 0x3E, 0x00}, // 6
+  {0x7F, 0x63, 0x06, 0x0C, 0x18, 0x18, 0x18, 0x00}, // 7
+  {0x3E, 0x63, 0x63, 0x3E, 0x63, 0x63, 0x3E, 0x00}, // 8
+  {0x3E, 0x63, 0x63, 0x3F, 0x03, 0x06, 0x3C, 0x00}  // 9
+};
+
+void setup() {
+  // Wake up the MAX7219 from power-saving mode
+  for (int i = 0; i < 4; i++) {
+    lc.shutdown(i, false);
+    lc.setIntensity(i, 8); // Set brightness level (0-15)
+    lc.clearDisplay(i); // Clear display register
+  }
+}
+
+void loop() {
+  // Countdown from 9 to 0
+  for (int num = 9; num >= 0; num--) {
+    displayDigit(num);
+    delay(1000); // Wait for 1 second
+  }
+}
+
+void displayDigit(int num) {
+  // Clear the display before showing a new number
+  for (int i = 0; i < 4; i++) {
+    lc.clearDisplay(i);
+  }
+
+  // Display the digit on the first 8x8 matrix
+  for (int col = 0; col < 8; col++) {
+    lc.setColumn(0, col, digitPatterns[num][col]);
+  }
+}
