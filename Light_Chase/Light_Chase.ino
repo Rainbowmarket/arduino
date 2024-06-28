@@ -83,11 +83,11 @@ void playLevel(byte levelIndex) {
       spot = random(44) + 3;
       findRandom = false;
     }
-//    leds[spot - 1].setRGB(255, 140, 0);
+    leds[spot - 1].setRGB(255, 140, 0);
     leds[spot].setRGB(0, 255, 0);
-//    leds[spot + 1].setRGB(255, 140, 0);
+    leds[spot + 1].setRGB(255, 140, 0);
     sleds[levelIndex].setRGB(0, 0, 255);
-//    PlayGame(spot - 1, spot + 1);
+    PlayGame(spot - 1, spot + 1);
   }
   if (digitalRead(PUSH_BUTTON) == LOW) {
     delay(300);
