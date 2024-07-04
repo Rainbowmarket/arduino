@@ -1,14 +1,14 @@
 #include "FastLED.h"
 #include "SoftwareSerial.h"
-//#include "DFRobotDFPlayerMini.h"
+#include "DFRobotDFPlayerMini.h"
 
 #define NUM_LEDS 45
 #define DATA_PIN 2
 #define SCORE_PIN 6
 #define SCORE_LEDS 4
 #define PUSH_BUTTON 4
-//#define RX_PIN 11
-//#define TX_PIN 10
+#define RX_PIN 1
+#define TX_PIN 0
 
 CRGB leds[NUM_LEDS];
 CRGB sleds[SCORE_LEDS];
@@ -25,8 +25,8 @@ const byte ledSpeed[4] = {50, 40, 35, 20};
 bool findRandom = false;
 byte spot = 0;
 
-//SoftwareSerial mySoftwareSerial(RX_PIN, TX_PIN); // RX, TX
-//DFRobotDFPlayerMini myDFPlayer;
+SoftwareSerial mySoftwareSerial(RX_PIN, TX_PIN); // RX, TX
+DFRobotDFPlayerMini myDFPlayer;
 
 void setup() {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
