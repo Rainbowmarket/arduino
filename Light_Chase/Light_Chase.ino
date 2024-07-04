@@ -32,7 +32,7 @@ void setup() {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
   FastLED.addLeds<WS2812B, SCORE_PIN, GRB>(sleds, SCORE_LEDS);
   pinMode(PUSH_BUTTON, INPUT_PULLUP);
-  mySoftwareSerial.begin(9600);
+  //mySoftwareSerial.begin(9600);
   Serial.begin(9600);
   
  // if (!myDFPlayer.begin(mySoftwareSerial)) {
