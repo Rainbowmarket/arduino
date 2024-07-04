@@ -29,10 +29,10 @@ SoftwareSerial mySoftwareSerial(RX_PIN, TX_PIN); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
 
 void setup() {
-  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.addLeds<WS2811, DATA_PIN, GRB>(leds, NUM_LEDS);
   FastLED.addLeds<WS2812B, SCORE_PIN, GRB>(sleds, SCORE_LEDS);
   pinMode(PUSH_BUTTON, INPUT_PULLUP);
-  //mySoftwareSerial.begin(9600);
+  mySoftwareSerial.begin(9600);
   Serial.begin(9600);
   
  // if (!myDFPlayer.begin(mySoftwareSerial)) {
@@ -100,7 +100,7 @@ void playLevel(byte levelIndex) {
   if (millis() > time_now + period) {
     time_now = millis();
     if (findRandom) {
-      spot = random(44) + 3;
+      spot = random(42) + 3;
       findRandom = false;
     }
     leds[spot - 1].setRGB(255, 140, 0);
