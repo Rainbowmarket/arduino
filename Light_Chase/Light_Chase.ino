@@ -1,14 +1,14 @@
 #include "FastLED.h"
 #include "SoftwareSerial.h"
-#include "DFRobotDFPlayerMini.h"
+//#include "DFRobotDFPlayerMini.h"
 
 #define NUM_LEDS 45
 #define DATA_PIN 2
 #define SCORE_PIN 6
 #define SCORE_LEDS 4
 #define PUSH_BUTTON 4
-#define RX_PIN 11
-#define TX_PIN 10
+//#define RX_PIN 11
+//#define TX_PIN 10
 
 CRGB leds[NUM_LEDS];
 CRGB sleds[SCORE_LEDS];
@@ -25,8 +25,8 @@ const byte ledSpeed[4] = {50, 40, 35, 20};
 bool findRandom = false;
 byte spot = 0;
 
-SoftwareSerial mySoftwareSerial(RX_PIN, TX_PIN); // RX, TX
-DFRobotDFPlayerMini myDFPlayer;
+//SoftwareSerial mySoftwareSerial(RX_PIN, TX_PIN); // RX, TX
+//DFRobotDFPlayerMini myDFPlayer;
 
 void setup() {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
@@ -35,17 +35,17 @@ void setup() {
   mySoftwareSerial.begin(9600);
   Serial.begin(9600);
   
-  if (!myDFPlayer.begin(mySoftwareSerial)) {
-    Serial.println(F("Unable to begin:"));
-    Serial.println(F("1. Please recheck the connection!"));
-    Serial.println(F("2. Please insert the SD card!"));
-    while (true);
-  }
+ // if (!myDFPlayer.begin(mySoftwareSerial)) {
+ //   Serial.println(F("Unable to begin:"));
+ //   Serial.println(F("1. Please recheck the connection!"));
+ //   Serial.println(F("2. Please insert the SD card!"));
+ //   while (true);
+ // }
   
-  Serial.println(F("DFPlayer Mini online."));
-  myDFPlayer.volume(10);  // Set volume value. From 0 to 30
+  //Serial.println(F("DFPlayer Mini online."));
+  //myDFPlayer.volume(10);  // Set volume value. From 0 to 30
 
-  Serial.println("Reset");
+ // Serial.println("Reset");
 }
 
 void loop() {
@@ -92,7 +92,7 @@ void startGame() {
     FastLED.show();
   }
   gameState = 1;
-  myDFPlayer.play(1);  // Play game start audio
+  //myDFPlayer.play(1);  // Play game start audio
 }
 
 void playLevel(byte levelIndex) {
@@ -134,7 +134,7 @@ void PlayGame(byte bound1, byte bound2) {
 }
 
 void winner() {
-  myDFPlayer.play(3);  // Play game winner audio
+  //myDFPlayer.play(3);  // Play game winner audio
   for (byte i = 0; i < 3; i++) {
     for (byte j = 0; j < NUM_LEDS; j++) {
       leds[j].setRGB(0, 255, 0);
@@ -154,7 +154,7 @@ void winner() {
 }
 
 void loser() {
-  myDFPlayer.play(2);  // Play game out audio
+  //myDFPlayer.play(2);  // Play game out audio
   for (byte i = 0; i < 3; i++) {
     for (byte j = 0; j < NUM_LEDS; j++) {
       leds[j].setRGB(255, 0, 0);
